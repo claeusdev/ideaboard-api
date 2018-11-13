@@ -34,7 +34,7 @@ module IdeaboardApi
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'https://shrouded-gorge-19944.herokuapp.com'
+        origins 'https://frosty-goodall-60b3cd.netlify.com/'
         resource '*', headers: :any, methods: [:get, :post, :put, :delete, :options]
       end
     end
