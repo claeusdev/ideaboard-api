@@ -7,13 +7,21 @@ module Api::V1
 
     def create
       @idea = Idea.create(idea_params)
-      render json: @idea
+      if @idea.save
+        render json: @idea
+      else
+        render json: {errors: [@idea.errors]}
+      end
     end
 
     def update
       @idea = Idea.find(params[:id])
       @idea.update_attributes(idea_params)
-      render json: @idea
+      if @idea.save
+        render json: @idea, notice: "Saved successfully"
+      else
+        render json: {errors: [@idea.errors]}
+      end
     end
 
     def destroy
@@ -21,7 +29,7 @@ module Api::V1
       if @idea.destroy
         head :no_content, status: :ok
       else
-        render json: @idea.erros, status: :unprocessable_entity
+        render json: {errors: [@idea.errors]}, status: :unprocessable_entity
       end
     end
 
